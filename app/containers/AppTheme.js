@@ -15,6 +15,9 @@ export const theme = {
         }
     },
     Text: {
+        style: {
+            color: foreground
+        },
         h4Style: {
             color: foreground
         }
@@ -27,6 +30,9 @@ export const theme = {
             color: foreground
         },
         subtitleStyle: {
+            color: foreground
+        },
+        rightIcon: {
             color: foreground
         }
     },

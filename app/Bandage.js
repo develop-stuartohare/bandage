@@ -1,7 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { Screen } from "app/components";
 import { store, persistor } from "app/state/store";
 import Auth from "app/screens/Auth.screen";
 import Dashboard from "app/screens/Dashboard.screen";

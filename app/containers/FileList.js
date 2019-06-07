@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { FlatList } from "react-native";
-import { ListItem, SearchBar } from "app/components";
+import { SearchBar } from "app/components";
+import FileListItem from "app/containers/FileListItem";
 import useFileSync from "app/hooks/file/useFileSync";
-
-export const FlatListItem = file => {
-    const { id, title, recordedTimestamp } = file;
-
-    return <ListItem title={title} subtitle={recordedTimestamp} topDivider />;
-};
 
 export const FileList = props => {
     const [searchTerm, setSearchTerm] = useState();
-    const { status, loading, error, files, onRefresh } = useFileSync({ searchTerm });
+    const { loading, files, onRefresh } = useFileSync({ searchTerm });
 
     const searchbar = <SearchBar value={searchTerm} onChangeText={setSearchTerm} />;
 
@@ -27,7 +22,7 @@ export const FileList = props => {
 };
 
 FileList.defaultProps = {
-    renderItem: ({ item, index }) => <FlatListItem {...item} />,
+    renderItem: ({ item, index }) => <FileListItem file={item} />,
     keyExtractor: ({ id }) => id
 };
 
