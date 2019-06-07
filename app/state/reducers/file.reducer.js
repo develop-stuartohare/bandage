@@ -7,8 +7,7 @@ export const reducer = (state = defaultState, action) => {
 
     switch (type) {
         case SYNC_FILES: {
-            const newState = mergeRecords(state, payload);
-            return newState;
+            return mergeRecords(state, payload);
         }
         default: {
             return state;
