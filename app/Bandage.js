@@ -1,24 +1,23 @@
 import React from "react";
-import { View } from "react-native";
-
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { Screen } from "app/components";
-
+import { store, persistor } from "app/state/store";
 import Auth from "app/screens/Auth.screen";
 import Dashboard from "app/screens/Dashboard.screen";
 import AppTheme from "app/containers/AppTheme";
-import Navbar from "app/containers/Navbar";
+
 import AudioPlayer from "app/containers/AudioPlayer";
 
 export const Bandage = () => {
     return (
         <AppTheme>
-            <Screen>
-                <Navbar title={"Bandage"} />
-                <Auth>
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
                     <Dashboard />
                     <AudioPlayer />
-                </Auth>
-            </Screen>
+                </PersistGate>
+            </Provider>
         </AppTheme>
     );
 };
