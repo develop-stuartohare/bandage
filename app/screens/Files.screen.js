@@ -1,12 +1,18 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { Screen } from "app/components";
+export class FileScreen extends React.Component {
+    static navigationOptions = {
+        title: "Files"
+    };
 
-export const FilesScreen = () => {
-    return (
-        <View style={{ marginTop: 100 }}>
-            <Text> FilesScreen</Text>
-        </View>
-    );
-};
+    render() {
+        return (
+            <Screen>
+                <Text> FileScreen</Text>
+            </Screen>
+        );
+    }
+}
 
-export default FilesScreen;
+export default FileScreen;
