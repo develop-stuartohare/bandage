@@ -25,21 +25,27 @@ const TrackBarContainer = styled(Container)`
     flex-direction: row;
 `;
 
+const TrackText = styled(Text)`
+    color: #aaa;
+    font-size: 12;
+    font-weight: 100;
+`;
+
 const TrackPosition = () => {
     const position = usePlayerPosition();
-    return <Text>{position}</Text>;
+    return <TrackText>{position}</TrackText>;
 };
 const TrackDuration = () => {
     const duration = usePlayerDuration();
 
     const durationFormatted = moment.utc(duration * 1000).format("mm:ss");
 
-    return <Text>{durationFormatted}</Text>;
+    return <TrackText>{durationFormatted}</TrackText>;
 };
 
 const TrackTitle = () => {
     const title = usePlayerTitle();
-    return <Text style={{ textAlign: "center", height: 20 }}>{title}</Text>;
+    return <TrackText style={{ textAlign: "center", height: 20 }}>{title}</TrackText>;
 };
 
 const TrackBar = ({ children }) => {

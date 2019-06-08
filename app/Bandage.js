@@ -1,7 +1,9 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "app/state/store";
+import { Container } from "app/components";
 import Navigation from "app/navigation";
 import AppTheme from "app/containers/AppTheme";
 import AudioPlayerContextProvider from "app/containers/AudioPlayer/AudioPlayerContext";
@@ -13,8 +15,10 @@ export const Bandage = () => {
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
                     <AudioPlayerContextProvider>
-                        <Navigation />
-                        <AudioPlayer />
+                        <Container style={StyleSheet.absoluteFillObject}>
+                            <Navigation />
+                            <AudioPlayer />
+                        </Container>
                     </AudioPlayerContextProvider>
                 </PersistGate>
             </Provider>

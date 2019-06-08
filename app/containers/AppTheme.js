@@ -52,7 +52,8 @@ export const theme = {
         }
     },
     Icon: {
-        color: primaryInverted
+        color: primaryInverted,
+        underlayColor: primary
     }
 };
 

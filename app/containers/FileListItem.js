@@ -19,13 +19,15 @@ export const FileListItem = React.memo(({ file, ...props }) => {
         containerStyle: {
             padding: 5,
             paddingLeft: 8
-        }
+        },
+        underlayColor: colors.primary
     };
     if (isCurrentTrack) {
         leftIcon = {
             ...leftIcon,
             name: isPlaying ? "ios-pause" : "ios-play",
             color: colors.primary,
+            underlayColor: colors.primaryInverted,
             onPress
         };
         containerStyle = { backgroundColor: colors.primaryInverted };
