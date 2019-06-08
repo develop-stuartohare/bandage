@@ -1,11 +1,15 @@
-export const backgroundColor = "#111";
-export const foregroundColor = "#CCC";
+import * as palette from "app/palette";
+const { white, black, yellow, red, green, orange } = palette;
 
 export const colors = {
-    background: backgroundColor,
-    foreground: foregroundColor,
-    white: "white",
-    lightGray: "#999"
+    primary: white,
+    primaryInverted: black,
+    secondary: yellow,
+    secondaryInverted: black,
+    success: green,
+    error: red,
+    warning: orange,
+    ...palette
 };
 
 export default colors;

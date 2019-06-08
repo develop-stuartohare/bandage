@@ -1,43 +1,58 @@
 import React from "react";
 import colors from "app/colors";
-import { ThemeProvider, Button } from "react-native-elements";
+import { ThemeProvider } from "react-native-elements";
 
-const { foreground, background } = colors;
+const { primaryInverted, primary, secondary, error, success, warning } = colors;
+
 export const theme = {
+    primary,
+    secondary,
+    success,
+    error,
+    warning,
     Header: {
         containerStyle: {
-            backgroundColor: background
+            backgroundColor: secondary
         }
+    },
+    SearchBar: {
+        lightTheme: true
     },
     Input: {
         inputStyle: {
-            color: foreground
+            color: primaryInverted
         }
     },
     Text: {
         style: {
-            color: foreground
+            color: primaryInverted,
+            fontSize: 15
         },
         h4Style: {
-            color: foreground
+            color: primaryInverted
         }
     },
     ListItem: {
         containerStyle: {
-            backgroundColor: background
+            backgroundColor: primary,
+            padding: 10
         },
         titleStyle: {
-            color: foreground
+            color: primaryInverted,
+            // fontWeight: "500",
+            fontSize: 16
         },
         subtitleStyle: {
-            color: foreground
+            color: primaryInverted,
+            fontWeight: "100",
+            fontSize: 13
         },
         rightIcon: {
-            color: foreground
+            color: primaryInverted
         }
     },
     Icon: {
-        color: foreground
+        color: primaryInverted
     }
 };
 

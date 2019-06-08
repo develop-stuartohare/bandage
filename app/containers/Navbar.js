@@ -1,25 +1,22 @@
 import React from "react";
-import { ThemeProvider, Header } from "react-native-elements";
-import { Text, Icon } from "app/components";
+import { Divider, Header } from "react-native-elements";
+import { Text, TitleText, Icon } from "app/components";
 import colors from "app/colors";
+import styled from "styled-components/native";
 
-const bandageIcon = {
-    name: "spoon",
-    type: "font-awesome"
-};
 export const Navbar = ({ title, ...props }) => {
-    const centerComponent = title ? <Text>{title}</Text> : undefined;
+    const centerComponent = title ? <TitleText>{title}</TitleText> : undefined;
     return (
-        <Header
-            leftComponent={<Icon {...bandageIcon} />}
-            centerComponent={centerComponent}
-            {...props}
-        />
+        <>
+            <Header centerComponent={centerComponent} {...props} />
+            <Divider />
+        </>
     );
 };
 
 Navbar.defaultProps = {
-    barStyle: "dark-content"
+    placement: "left",
+    statusBarProps: { translucent: true }
 };
 
 export default Navbar;

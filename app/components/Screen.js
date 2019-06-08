@@ -4,7 +4,7 @@ import colors from "app/colors";
 
 const ScreenContainer = styled.View`
     flex: 1;
-    background-color: ${colors.background};
+    background-color: ${colors.primary};
 `;
 
 export const Screen = ({ children }) => {
