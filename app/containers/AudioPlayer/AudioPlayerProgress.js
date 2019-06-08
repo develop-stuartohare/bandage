@@ -1,10 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { TouchableOpacity } from "react-native";
+import Video from "react-native-video";
 import { Container, Text } from "app/components";
-import TrackPlayer from "react-native-track-player";
-import usePlayerPosition from "app/hooks/player/usePlayerPosition";
-import usePlayerDuration from "app/hooks/player/usePlayerDuration";
-import usePlayerTitle from "app/hooks/player/usePlayerTitle";
+import usePlayer from "app/hooks/player/usePlayer";
 import moment from "moment";
 import styled from "styled-components/native";
 
@@ -31,62 +29,103 @@ const TrackText = styled(Text)`
     font-weight: 100;
 `;
 
-const TrackPosition = () => {
-    const position = usePlayerPosition();
-    return <TrackText>{position}</TrackText>;
-};
-const TrackDuration = () => {
-    const duration = usePlayerDuration();
+const formatSeconds = seconds => moment.utc(seconds * 1000).format("mm:ss");
 
-    const durationFormatted = moment.utc(duration * 1000).format("mm:ss");
-
-    return <TrackText>{durationFormatted}</TrackText>;
+const TrackPosition = ({ position }) => {
+    return <TrackText>{formatSeconds(position)}</TrackText>;
 };
 
-const TrackTitle = () => {
-    const title = usePlayerTitle();
+const TrackDuration = ({ duration }) => {
+    return <TrackText>{formatSeconds(duration)}</TrackText>;
+};
+
+const TrackTitle = ({ title }) => {
     return <TrackText style={{ textAlign: "center", height: 20 }}>{title}</TrackText>;
 };
 
-const TrackBar = ({ children }) => {
-    const position = usePlayerPosition({ format: false });
-    const duration = usePlayerDuration();
+const useVideoProps = () => {
+    const ref = useRef();
+    const { source, title, duration, onLoad, paused } = usePlayer();
+    const [status, setStatus] = useState();
+    const { position = 0 } = status || {};
 
     const progress = position && duration ? position / duration : 0;
 
     const [width, setWidth] = useState(0);
+
     const onLayout = useCallback(({ nativeEvent }) => {
         setWidth(nativeEvent.layout.width);
     }, []);
 
-    const onPress = useCallback(
+    const onSeek = useCallback(
         async ({ nativeEvent }) => {
+            if (!ref.current) return;
             const { locationX } = nativeEvent;
             const ratio = locationX / width;
             const seekTo = duration * ratio;
-            TrackPlayer.seekTo(seekTo);
+            ref.current.seek(seekTo);
         },
         [width, duration]
     );
-    return (
-        <TouchableOpacity style={{ paddingVertical: 5 }} onPress={onPress}>
-            <TrackBarContainer onLayout={onLayout}>
-                <Container style={{ flex: progress, backgroundColor: "white" }} />
-                <Container style={{ flex: 1 - progress, backgroundColor: "grey" }} />
-            </TrackBarContainer>
-        </TouchableOpacity>
-    );
+
+    const onProgress = useCallback(data => {
+        const { currentTime, playableDuration } = data;
+        setStatus({ position: currentTime, duration: playableDuration });
+    }, []);
+
+    return {
+        ref,
+        source,
+        progress,
+        position,
+        title,
+        paused,
+        duration,
+        onProgress,
+        onLoad,
+        onSeek,
+        onLayout
+    };
 };
 
-const AudioPlayerProgress = () => {
+const AudioPlayerProgress = ({ children }) => {
+    const {
+        ref,
+        source,
+        position,
+        progress,
+        title,
+        paused,
+        duration,
+        onProgress,
+        onLoad,
+        onSeek,
+        onLayout
+    } = useVideoProps();
+
     return (
         <ProgressContainer>
             <Row>
-                <TrackPosition />
-                <TrackTitle />
-                <TrackDuration />
+                <TrackPosition position={position} />
+                <TrackTitle title={title} />
+                <TrackDuration duration={duration} />
             </Row>
-            <TrackBar />
+
+            {source && (
+                <Video
+                    ref={ref}
+                    source={source}
+                    onProgress={onProgress}
+                    onLoad={onLoad}
+                    paused={paused}
+                />
+            )}
+            <TouchableOpacity style={{ paddingVertical: 5 }} onPress={onSeek}>
+                <TrackBarContainer onLayout={onLayout}>
+                    <Container style={{ flex: progress, backgroundColor: "white" }} />
+                    <Container style={{ flex: 1 - progress, backgroundColor: "grey" }} />
+                </TrackBarContainer>
+            </TouchableOpacity>
         </ProgressContainer>
     );
 };

@@ -1,14 +1,15 @@
 import React, { useCallback } from "react";
 import { ListItem } from "app/components";
-import usePlayerSetTrack from "app/hooks/player/usePlayerSetTrack";
-import usePlayerContext from "app/hooks/player/usePlayerContext";
+import usePlayerContext from "app/hooks/player/usePlayer";
 import colors from "app/colors";
 
 export const FileListItem = React.memo(({ file, ...props }) => {
     const { id, title, recordedTimestamp, duration } = file;
-    const { trackId, isPlaying } = usePlayerContext();
+    const { trackId, playing, setTrack } = usePlayerContext();
     const isCurrentTrack = trackId == id;
-    const onPress = usePlayerSetTrack(id);
+    const onPress = useCallback(() => {
+        setTrack(id);
+    }, [id, setTrack]);
 
     let containerStyle = {};
     let titleStyle = {};
@@ -25,7 +26,7 @@ export const FileListItem = React.memo(({ file, ...props }) => {
     if (isCurrentTrack) {
         leftIcon = {
             ...leftIcon,
-            name: isPlaying ? "ios-pause" : "ios-play",
+            name: playing ? "ios-pause" : "ios-play",
             color: colors.primary,
             underlayColor: colors.primaryInverted,
             onPress

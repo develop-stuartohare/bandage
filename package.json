@@ -1,53 +1,55 @@
 {
-  "name": "bandage",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "android": "node node_modules/react-native/local-cli/cli.js run-android",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
-  },
-  "dependencies": {
-    "@react-native-community/async-storage": "^1.4.2",
-    "final-form": "^4.13.1",
-    "lodash": "^4.17.11",
-    "moment": "^2.24.0",
-    "react": "16.8.3",
-    "react-final-form": "^6.0.1",
-    "react-native": "0.59.8",
-    "react-native-elements": "^1.1.0",
-    "react-native-gesture-handler": "^1.2.2",
-    "react-native-swift": "^1.2.2",
-    "react-native-track-player": "^1.1.4",
-    "react-native-vector-icons": "^6.4.2",
-    "react-navigation": "^3.11.0",
-    "react-navigation-hooks": "^1.0.0-alpha.2",
-    "react-redux": "^7.1.0-alpha.5",
-    "redux": "^4.0.1",
-    "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0",
-    "styled-components": "^4.2.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/runtime": "^7.4.5",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.8.0",
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-hooks": "^1.6.0",
-    "jest": "^24.8.0",
-    "metro-react-native-babel-preset": "^0.54.1",
-    "prettier": "^1.17.1",
-    "prettier-eslint": "^8.8.2",
-    "react-test-renderer": "16.8.3"
-  },
-  "jest": {
-    "preset": "react-native"
-  },
-  "isSwift": true
+    "name": "bandage",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+        "android": "node node_modules/react-native/local-cli/cli.js run-android",
+        "android:release": "react-native run-android --variant=release",
+        "ios:release": "react-native run-ios --configuration Release",
+        "start": "node node_modules/react-native/local-cli/cli.js start",
+        "test": "jest"
+    },
+    "dependencies": {
+        "@react-native-community/async-storage": "^1.4.2",
+        "final-form": "^4.13.1",
+        "lodash": "^4.17.11",
+        "moment": "^2.24.0",
+        "react": "16.8.3",
+        "react-final-form": "^6.0.1",
+        "react-native": "0.59.8",
+        "react-native-elements": "^1.1.0",
+        "react-native-gesture-handler": "^1.2.2",
+        "react-native-swift": "^1.2.2",
+        "react-native-vector-icons": "^6.4.2",
+        "react-native-video": "^4.4.1",
+        "react-navigation": "^3.11.0",
+        "react-navigation-hooks": "^1.0.0-alpha.2",
+        "react-redux": "^7.1.0-alpha.5",
+        "redux": "^4.0.1",
+        "redux-persist": "^5.10.0",
+        "redux-thunk": "^2.3.0",
+        "reselect": "^4.0.0",
+        "styled-components": "^4.2.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.5",
+        "@babel/runtime": "^7.4.5",
+        "babel-eslint": "^10.0.1",
+        "babel-jest": "^24.8.0",
+        "eslint": "^5.16.0",
+        "eslint-config-prettier": "^4.3.0",
+        "eslint-plugin-prettier": "^3.1.0",
+        "eslint-plugin-react": "^7.13.0",
+        "eslint-plugin-react-hooks": "^1.6.0",
+        "jest": "^24.8.0",
+        "metro-react-native-babel-preset": "^0.54.1",
+        "prettier": "^1.17.1",
+        "prettier-eslint": "^8.8.2",
+        "react-test-renderer": "16.8.3"
+    },
+    "jest": {
+        "preset": "react-native"
+    },
+    "isSwift": true
 }

@@ -4,13 +4,10 @@ import { Container, Icon, Divider, Text } from "app/components";
 import styled from "styled-components/native";
 import colors from "app/colors";
 
-import TrackPlayer from "react-native-track-player";
 import AudioPlayerTheme from "./AudioPlayerTheme";
 import AudioPlayerProgress from "./AudioPlayerProgress";
-import usePlayerStatus from "app/hooks/player/usePlayerStatus";
-import usePlayerTitle from "app/hooks/player/usePlayerTitle";
-
-TrackPlayer.setupPlayer();
+import usePlayer from "app/hooks/player/usePlayer";
+import STATE from "app/utils/playerStates";
 
 const PlayerContainer = styled.View`
     padding: 5px;
@@ -27,33 +24,21 @@ const PlayerControls = styled.View`
 
 const iconMap = {
     default: "ios-play",
-    [TrackPlayer.STATE_BUFFERING]: "ios-refresh",
-    [TrackPlayer.STATE_NONE]: "ios-alert",
-    [TrackPlayer.STATE_PAUSED]: "ios-play",
-    [TrackPlayer.STATE_PLAYING]: "ios-pause",
-    [TrackPlayer.STATE_READY]: "ios-play",
-    [TrackPlayer.STATE_STOPPED]: "ios-play"
-};
-
-const TrackTitle = () => {
-    const title = usePlayerTitle();
-    return <Text style={{ textAlign: "center", height: 20 }}>{title}</Text>;
+    [STATE.BUFFERING]: "ios-refresh",
+    [STATE.NONE]: "ios-play",
+    [STATE.PAUSED]: "ios-play",
+    [STATE.PLAYING]: "ios-pause",
+    [STATE.READY]: "ios-play",
+    [STATE.STOPPED]: "ios-play"
 };
 
 const PlayButton = () => {
-    const status = usePlayerStatus();
-    const onPress = useCallback(() => {
-        if (status === TrackPlayer.STATE_PLAYING) {
-            TrackPlayer.pause();
-            return;
-        }
-
-        TrackPlayer.play();
-    }, [status]);
+    const { status, togglePlayPause } = usePlayer();
+    const onPress = useCallback(() => togglePlayPause(), [togglePlayPause]);
 
     const name = iconMap[status] || iconMap.default;
 
-    if (status === TrackPlayer.STATE_BUFFERING) {
+    if (status === STATE.LOADING) {
         return (
             <Container style={{ marginHorizontal: 10, width: 30 }}>
                 <ActivityIndicator size={"large"} />
@@ -68,25 +53,16 @@ const PlayButton = () => {
     );
 };
 
-export const AudioPlayer = ({ source }) => {
-    useEffect(() => {
-        TrackPlayer.reset();
-        return () => {
-            TrackPlayer.reset();
-        };
-    }, []);
-
-    return (
-        <AudioPlayerTheme>
-            <Divider />
-            <PlayerContainer>
-                <PlayerControls>
-                    <PlayButton />
-                    <AudioPlayerProgress />
-                </PlayerControls>
-            </PlayerContainer>
-        </AudioPlayerTheme>
-    );
-};
+export const AudioPlayer = () => (
+    <AudioPlayerTheme>
+        <Divider />
+        <PlayerContainer>
+            <PlayerControls>
+                <PlayButton />
+                <AudioPlayerProgress />
+            </PlayerControls>
+        </PlayerContainer>
+    </AudioPlayerTheme>
+);
 
 export default AudioPlayer;
