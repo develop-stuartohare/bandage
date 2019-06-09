@@ -7,7 +7,7 @@ import { Container } from "app/components";
 import Navigation from "app/navigation";
 import Auth from "app/screens/Auth.screen";
 import AppTheme from "app/containers/AppTheme";
-import AudioPlayerContextProvider from "app/containers/AudioPlayer/AudioPlayerContext";
+import { AudioPlayerContextProvider } from "app/contexts/AudioPlayerContext";
 import AudioPlayer from "app/containers/AudioPlayer";
 
 export const Bandage = () => {

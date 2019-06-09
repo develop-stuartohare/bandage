@@ -7,7 +7,7 @@ import colors from "app/colors";
 import AudioPlayerTheme from "./AudioPlayerTheme";
 import AudioPlayerProgress from "./AudioPlayerProgress";
 import usePlayer from "app/hooks/player/usePlayer";
-import STATE from "app/utils/playerStates";
+import STATE from "app/contexts/AudioPlayerContext";
 
 const PlayerContainer = styled.View`
     padding: 5px;
