@@ -12,20 +12,28 @@ export const useFileSync = (params = {}) => {
     const [error, setError] = useState(null);
     const syncFiles = useSyncFiles();
 
-    const onRefresh = useCallback(async () => {
-        try {
-            setStatus("LOADING");
-            await syncFiles();
-            setStatus("COMPLETE");
-        } catch (error) {
-            setError(error);
-            setStatus("FAIL");
-        }
-    }, [syncFiles]);
+    const fetch = useCallback(
+        async (force = false) => {
+            try {
+                setStatus("LOADING");
+                await syncFiles(force);
+                setStatus("COMPLETE");
+            } catch (error) {
+                setError(error);
+                setStatus("FAIL");
+            }
+        },
+        [syncFiles]
+    );
 
     useEffect(() => {
-        onRefresh();
+        fetch();
     }, []);
+
+    const onRefresh = useCallback(() => {
+        const force = true;
+        fetch(force);
+    }, [fetch]);
 
     const filesFiltered = useMemo(() => {
         if (!searchTerm) return files;

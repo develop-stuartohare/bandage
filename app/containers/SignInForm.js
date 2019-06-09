@@ -1,17 +1,20 @@
-import React, { useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Form } from "react-final-form";
 import { Button, Spacer, TextInputField } from "app/components";
-import signIn from "app/utils/signIn";
+import useSignIn from "app/hooks/auth/useSignIn";
 
 export const SignInForm = () => {
     let formSubmit;
+    const signIn = useSignIn();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const onSubmit = useCallback(async values => {
-        const response = await signIn(values);
-        debugger;
-    }, []);
+    const onSubmit = useCallback(
+        async values => {
+            await signIn(values);
+        },
+        [signIn]
+    );
 
     const onPress = useCallback(() => {
         formSubmit();

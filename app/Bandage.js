@@ -5,6 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "app/state/store";
 import { Container } from "app/components";
 import Navigation from "app/navigation";
+import Auth from "app/screens/Auth.screen";
 import AppTheme from "app/containers/AppTheme";
 import AudioPlayerContextProvider from "app/containers/AudioPlayer/AudioPlayerContext";
 import AudioPlayer from "app/containers/AudioPlayer";
@@ -16,8 +17,10 @@ export const Bandage = () => {
                 <PersistGate loading={null} persistor={persistor}>
                     <AudioPlayerContextProvider>
                         <Container style={StyleSheet.absoluteFillObject}>
-                            <Navigation />
-                            <AudioPlayer />
+                            <Auth>
+                                <Navigation />
+                                <AudioPlayer />
+                            </Auth>
                         </Container>
                     </AudioPlayerContextProvider>
                 </PersistGate>

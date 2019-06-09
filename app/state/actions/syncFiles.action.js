@@ -15,10 +15,12 @@ const fetchFiles = async () => {
     return files;
 };
 
-export const syncFiles = () => async (dispatch, getState) => {
+export const syncFiles = (force = false) => async (dispatch, getState) => {
     const state = getState();
     const persistedFiles = getPersistedFiles(state);
-    if (Object.keys(persistedFiles).length) return;
+
+    if (Object.keys(persistedFiles).length && !force) return;
+
     const files = await fetchFiles();
     dispatch({ type: SYNC_FILES, payload: files });
 
