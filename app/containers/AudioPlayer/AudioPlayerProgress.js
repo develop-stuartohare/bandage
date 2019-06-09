@@ -8,7 +8,6 @@ import styled from "styled-components/native";
 
 const ProgressContainer = styled(Container)`
     flex: 1;
-    padding: 10px;
 `;
 
 const Row = styled(Container)`
@@ -24,7 +23,7 @@ const TrackBarContainer = styled(Container)`
 `;
 
 const TrackText = styled(Text)`
-    color: #aaa;
+    color: #fff;
     font-size: 12;
     font-weight: 100;
 `;
@@ -118,6 +117,8 @@ const AudioPlayerProgress = ({ children }) => {
                     onProgress={onProgress}
                     onLoad={onLoad}
                     paused={paused}
+                    audioOnly
+                    playInBackground={false}
                 />
             )}
             <TouchableOpacity style={{ paddingVertical: 5 }} onPress={onSeek}>

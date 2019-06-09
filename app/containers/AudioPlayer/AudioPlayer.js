@@ -17,6 +17,7 @@ const PlayerContainer = styled.View`
 
 const PlayerControls = styled.View`
     height: 60px;
+    padding-horizontal: 10px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -40,29 +41,39 @@ const PlayButton = () => {
 
     if (status === STATE.LOADING) {
         return (
-            <Container style={{ marginHorizontal: 10, width: 30 }}>
+            <Container style={{ marginRight: 10, width: 30 }}>
                 <ActivityIndicator size={"large"} />
             </Container>
         );
     }
 
     return (
-        <TouchableOpacity onPress={onPress} style={{ marginHorizontal: 10, width: 30 }}>
+        <TouchableOpacity
+            onPress={onPress}
+            style={{
+                marginTop: 20,
+                marginRight: 10,
+                width: 30
+            }}
+        >
             <Icon name={name} type={"ionicon"} size={40} />
         </TouchableOpacity>
     );
 };
 
-export const AudioPlayer = () => (
-    <AudioPlayerTheme>
-        <Divider />
-        <PlayerContainer>
-            <PlayerControls>
-                <PlayButton />
-                <AudioPlayerProgress />
-            </PlayerControls>
-        </PlayerContainer>
-    </AudioPlayerTheme>
-);
+export const AudioPlayer = () => {
+    const { status } = usePlayer();
+    return (
+        <AudioPlayerTheme>
+            <Divider />
+            <PlayerContainer>
+                <PlayerControls style={{ opacity: status === STATE.NONE ? 0.3 : 1 }}>
+                    <PlayButton />
+                    <AudioPlayerProgress />
+                </PlayerControls>
+            </PlayerContainer>
+        </AudioPlayerTheme>
+    );
+};
 
 export default AudioPlayer;
